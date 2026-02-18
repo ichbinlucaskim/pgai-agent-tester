@@ -1,374 +1,225 @@
 # Bug Report: Pretty Good AI Voice Agent
 
-**Report Date:** February 17, 2026  
+**Report Date:** February 18, 2026  
 **Test Method:** Automated voice bot with YAML scenario definitions  
 **Test Line:** 805-439-8008
+
+> **Evidence note:** All bugs listed here are backed by specific call transcripts saved under `data/transcripts/`. Each entry references a scenario and example `call_sid` so the behavior can be reproduced and verified.
 
 ---
 
 ## Summary
 
-This report documents bugs and issues found in Pretty Good AI's voice agent during automated testing across standard and edge-case scenarios. Bugs are categorized by type and include scenario context, expected vs. observed behavior, and impact assessment.
+This report documents bugs and issues found in Pretty Good AI's voice agent during automated testing. Entries are limited to behaviors that appear in saved transcript JSON files, with emphasis on **Agent Logic and Framework Robustness** (state desync, conditional logic, repetition loops, appointment bombing). Speculative or unverified items are moved to "Potential future scenarios to test."
 
 ---
 
-## 1. Question Priority & Clarification
+## 1. State Desynchronization / U-Turn
 
-### Bug #1.1: Unclear Question Handling in Medication Refill
-
-**Scenario:** `medication_refill`  
-**Call ID:** Example: `CA1234567890abcdef` (from `edge_state_desync` scenario)
-
-**Description:**  
-When the agent asks "When did you last refill this medication?" and the patient responds with uncertainty ("I'm not sure what you mean" or "I don't remember exactly"), the agent sometimes fails to restate the question clearly or provide clarification. Instead, it may move on to the next step without confirming understanding, leading to confusion.
-
-**Expected:**  
-Agent should restate the question in simpler terms: "I'm asking when you last picked up your Lisinopril prescription from the pharmacy. Do you remember approximately when that was?"
-
-**Observed:**  
-Agent says "No problem" and proceeds to ask a different question (e.g., "Which pharmacy would you like us to send it to?") without confirming the patient understood the original question.
-
-**Risk / Impact:**  
-**Medium** - Patient may provide incorrect information or become frustrated. Could lead to refill timing errors or duplicate prescriptions.
-
----
-
-### Bug #1.2: DOB Mismatch + "What can I help you with?" Loop
-
-**Scenario:** `appointment`, `medication_refill`  
-**Call ID:** Multiple calls
-
-**Description:**  
-When the agent reads back an incorrect DOB (e.g., patient says "February 17th, 2026" but agent confirms "February 18th, 2026"), and the patient accepts it (per scenario anti-repetition rules), the agent sometimes later asks "What can I help you with?" as if starting fresh, ignoring the context that was already established.
-
-**Expected:**  
-Agent should maintain conversation context. If DOB was already provided (even if slightly mismatched), agent should proceed with the original request (appointment scheduling, refill, etc.) rather than restarting.
-
-**Observed:**  
-Agent says "Got it, lupus" (misheard "Lucas") or confirms DOB, then immediately asks "What can I help you with today?" as if the reason for call was never stated.
-
-**Risk / Impact:**  
-**Low-Medium** - Increases call duration and patient frustration. Minor impact on efficiency.
-
----
-
-## 2. State Desynchronization / U-Turn
-
-### Bug #2.1: Lost Appointment Time After Insurance Detour
+### Bug #1.1: Lost Time Slot After Insurance Detour + Repeated "Checking" With No Outcome
 
 **Scenario:** `edge_state_desync`  
-**Call ID:** Example from `edge_state_desync` runs
+**Call ID:** `CA3e29383b097e36b2fa0c0c3e7f71f161`
 
-**Description:**  
-Patient books Tuesday at 3 PM, then U-turns to ask about insurance coverage. After agent answers insurance question, patient returns with "that time we talked about earlier" (without restating the time). Agent forgets the original time slot and either:
-1. Says "3 PM is unavailable" (contradicting earlier confirmation)
-2. Gets stuck in a loop asking "Which time slot?" or "What time were you thinking?"
-3. Books a different time than originally agreed
+**Observed (from transcript):**
+
+- Patient requested Tuesday at 3 PM, then U-turned to ask about Blue Cross insurance. After agent answered, patient said: *"Now, can you book it for that time we talked about earlier?"*
+- Agent first said: *"The closest available time on Tuesday is 8 a.m. 9:00 a.m. or 10:00 a.m. There isn't a 3 p.m. slot open?"* — i.e., it **lost** the previously discussed 3 PM and offered different times.
+- When patient pushed back (*"Wait, I still need to schedule that. We discussed a time. Did you get it?"*), agent then said it would book Tuesday at 3 PM and entered a **repeated "checking" pattern** with no concrete result:
+  - Turn 18: *"Got it, let me check if Tuesday at 3:00 p.m. is available for your follow-up consultation 1 moment while I look that up."*
+  - Turn 20: *"Okay, I'm checking availability for a follow-up consultation on Tuesday at 3 p.m. I'll let you know as soon as I have an update."*
+  - Turn 22: *"Understood please hold while. I confirm the appointment time for you."*
+  - Turn 24: *"Okay, I'm still checking for a Tuesday, 3 p.m. follow-up consultation. I'll update you as soon as I have the details."*
+- Call ended at 25 turns with **no confirmed booking**.
 
 **Expected:**  
-Agent should remember "Tuesday at 3 PM" from before the insurance detour and confirm: "Yes, Tuesday at 3 PM. Let me finalize that booking for you."
+After the insurance detour, agent should retain "Tuesday at 3 PM" and either confirm that slot or clearly state it is unavailable and offer alternatives. After one or two "checking" attempts, agent should either confirm the appointment or close the loop with a clear outcome (e.g., "3 PM isn’t available; here are the next best options").
 
-**Observed:**  
-Agent says "Let me check Tuesday at 3 PM" repeatedly without offering a concrete alternative or closing the booking. In some cases, agent books a different time (e.g., 2 PM or 4 PM) without acknowledging the change.
-
-**Risk / Impact:**  
-**High** - Patient receives incorrect appointment time, leading to missed appointments or scheduling conflicts. Critical for patient trust and clinic operations.
+**Risk / Impact:** **High** — Patient never receives a confirmed time; call ends in a stuck state. State is desynchronized after topic U-turn.
 
 ---
 
-### Bug #2.2: State Reset After Mid-Call Topic Change
+### Bug #1.2: Name Misheard as "Lupus" (Identity Verification)
 
-**Scenario:** `edge_state_desync`, `general_inquiry`  
-**Call ID:** Multiple
-
-**Description:**  
-When patient changes topic mid-call (e.g., from appointment booking to insurance question, then back), agent sometimes loses track of previously collected information (name, DOB, reason for call) and asks for it again.
-
-**Expected:**  
-Agent should retain all previously verified information (name, DOB, phone) throughout the call, even after topic changes.
+**Scenario:** `edge_state_desync`  
+**Call ID:** `CA3e29383b097e36b2fa0c0c3e7f71f161`
 
 **Observed:**  
-After returning to original topic, agent asks "Can I get your name?" or "What's your date of birth?" even though this was already provided and confirmed earlier in the call.
+Agent (turn 2): *"Got it. Lupus, can you please tell me your date of birth to verify your identity?"*  
+Patient had said "Yes, this is Lucas Kim." — so the agent misheard **Lucas** as **Lupus**.
 
-**Risk / Impact:**  
-**Medium** - Increases call duration and patient frustration. Suggests poor conversation state management.
+**Expected:**  
+Correct name capture and readback for identity verification.
+
+**Risk / Impact:** **Low** — Identity confusion; in this call the agent continued with DOB and the patient did not correct. Could cause wrong-patient issues if repeated.
 
 ---
 
-## 3. Conditional Logic Handling
+## 2. Conditional Logic / Policy Repetition Without Graceful Exit
 
-### Bug #3.1: Conditional Time Window Violations
+### Bug #2.1: Same Policy Message Repeated 4+ Times With No Exit Path
 
 **Scenario:** `edge_conditional_logic`  
-**Call ID:** Example from `edge_conditional_logic` runs
+**Call ID:** `CA061298fd3eac2bb97a4b147a34cbff55`
 
-**Description:**  
-Patient specifies "after 2 PM, not 4 PM" and "Wednesdays only if Dr. Kim." Agent sometimes:
-1. Suggests 4 PM slots despite "not 4 PM" constraint
-2. Schedules Wednesday with a different doctor (not Dr. Kim)
-3. Fails to apply exception rules (e.g., offers Wednesday with Dr. Smith)
+**Observed (from transcript):**
+
+- Patient stated: *"I prefer Dr. Kim, but I can only do Wednesdays if that's the only option"* and later *"I'd like to wait for Dr. Kim's availability."*
+- Agent correctly stated that Dr. Kim is not at Pivot Point Orthopedics and listed other doctors. Then the agent **repeated the same policy** multiple times without offering a clear next step or closing:
+  - Turn 16: *"Understood since Dr. Kim is not part of Pivot Point Orthopedics. I can't schedule you with that provider..."*
+  - Turn 18: *"Got it since Dr. Kim is not available at this Clinic. I can't schedule or wait list you for that provider, if you need anything else or want to book with another doctor, just let me know."*
+  - Turn 22: *"Understood since Dr. Kim is not part of Pivot Point Orthopedics. I can't schedule or wait list you for that provider. If you'd like to book with 1 of the available doctors or need help with something else, let me know."*
+  - Turn 24: *"I understand you want to wait for Dr. Kim but Dr. Kim is not part of Pivot Point Orthopedics so I can't schedule or notify you about their availability..."*
+- Patient continued to say they wanted to wait for Dr. Kim; agent did not offer waitlist (for a different provider) or a firm, friendly exit (e.g., "I’ve explained the options. Would you like to book with another doctor now, or end the call?").
 
 **Expected:**  
-Agent should strictly apply conditional rules: only offer times after 2 PM (excluding 4 PM), and only offer Wednesday if Dr. Kim is available.
+After 2–3 explanations, agent should offer a clear path: book with another provider, be added to a general waitlist if available, or close the call with a single summary and "Is there anything else?"
 
-**Observed:**  
-Agent offers 4 PM: "How about Wednesday at 4 PM with Dr. Smith?" Patient corrects: "I said not 4 PM, and Wednesdays only if Dr. Kim." Agent then offers Tuesday at 4 PM (still violating "not 4 PM").
-
-**Risk / Impact:**  
-**Medium-High** - Patient receives appointment that doesn't meet their requirements, leading to cancellations or no-shows. Indicates poor constraint handling in scheduling logic.
+**Risk / Impact:** **Medium** — Wastes time and creates frustration; suggests weak de-escalation when the patient’s preference cannot be satisfied.
 
 ---
 
-### Bug #3.2: Provider Preference Exception Not Applied
+## 3. Appointment Bombing: No Rate Limiting or Prioritization
 
-**Scenario:** `edge_conditional_logic`  
-**Call ID:** Example from `edge_conditional_logic` runs
+### Bug #3.1: Agent Fulfills Multiple Rapid Appointment Requests Without Qualifying or Limiting
 
-**Description:**  
-When patient specifies provider preferences with exceptions (e.g., "Dr. Kim preferred, but Dr. Smith is fine if Dr. Kim isn't available"), agent sometimes ignores the exception and only offers Dr. Kim slots, even when none are available.
+**Scenario:** `edge_appointment_bombing`  
+**Call ID:** `CAe17d9e6e4da5075db1e304e8cb6cc742`
+
+**Observed (from transcript):**
+
+- Patient said: *"I'd like to schedule several appointments for next week"* and then in one go: *"I need follow-up consultations for knee pain. I'd like to book appointments on Monday at 9, Tuesday at 10, Wednesday at 11, Thursday at 2, and Friday at 3."*
+- Agent **did not** ask a qualifying question (e.g., reason for each visit, or "How many appointments can I help you with today?") and **did not** enforce any limit. It proceeded to check and book **all five** slots one by one.
+- Agent said: *"Let me check availability for follow-up, consultations next week, starting with Monday at 9:00 a.m. I'll look up each day 1 at a time and confirm what's open?"* and then offered alternatives when 9 a.m. Monday wasn’t available, then continued through Tuesday, Wednesday, Thursday, Friday.
+- Multiple "still booking" / "still processing" messages with no single clear summary of all confirmed slots before the call ended:
+  - Turn 20: *"Tuesday at 10:00 a.m. with Dr. Doogie Howser is now booked. I'm still processing your Wednesday, Thursday and Friday, appointment takes a lot of moment while I finish those"*
+  - Turn 22: *"Wednesday at 11:00 a.m. with Dr. Judy Howser is confirmed. I'm still booking your Thursday and Friday appointment, please hold on. While I finish those up."*
 
 **Expected:**  
-Agent should offer Dr. Smith as fallback when Dr. Kim is unavailable, per patient's stated exception.
+Agent should ask key qualifying questions (e.g., reason for multiple visits) and/or enforce a reasonable limit per call (e.g., "I can book up to 2 appointments in this call; which two matter most?") before repeatedly searching and booking. After booking, provide one clear summary of all confirmed appointments.
 
-**Observed:**  
-Agent says "I don't see any availability with Dr. Kim" and asks "Would you like me to check other times?" without proactively offering Dr. Smith as an alternative.
-
-**Risk / Impact:**  
-**Low-Medium** - Reduces scheduling efficiency. Patient must explicitly request fallback provider.
+**Risk / Impact:** **Medium–High** — Scheduling abuse, wasted compute, and confusing UX; patient is left with repeated "still booking" updates instead of a single confirmation.
 
 ---
 
-## 4. Barge-in / Interruption
+## 4. Repetition / Near-Infinite Loop (State-Stuck)
 
-### Bug #4.1: Dropped Information After Interruption
+### Bug #4.1: Repeated "Checking" Loop With No Concrete Outcome (State Desync)
 
-**Scenario:** `edge_barge_in`  
-**Call ID:** Example from `edge_barge_in` runs
-
-**Description:**  
-Patient initially mentions knee pain. While agent is processing ("Let me check availability, one moment..."), patient interrupts to add "Sorry, my back has been hurting too. It's actually both." Agent's next response sometimes only addresses knee pain, ignoring the newly introduced back pain information.
-
-**Expected:**  
-Agent should acknowledge both symptoms: "I understand you're experiencing both knee pain and back pain. Let me find an appointment that addresses both concerns."
+**Scenario:** `edge_state_desync`  
+**Call ID:** `CA3e29383b097e36b2fa0c0c3e7f71f161`
 
 **Observed:**  
-Agent says "I can help you with your knee pain" or "Let me check availability for your knee appointment" without mentioning back pain.
+As in Bug #1.1, the agent said it would check Tuesday at 3 PM and then produced four consecutive turns (18, 20, 22, 24) that were variations of "I'm checking / I'll confirm / I'm still checking for Tuesday 3 p.m." with **no** concrete result (no "booked" and no "not available, here are alternatives"). The call ended without a confirmed appointment.
 
-**Risk / Impact:**  
-**Medium** - Patient's full medical needs may not be addressed. Could lead to incomplete visit preparation or incorrect appointment type booking.
+**Expected:**  
+After one or two checks, agent should either confirm the appointment or clearly state unavailability and offer alternatives. No indefinite "checking" loop.
 
-**Note:** In at least one call, the agent handled knee+back correctly, suggesting inconsistent behavior rather than a systematic failure.
+**Risk / Impact:** **High** — Near-infinite loop / state-stuck behavior; patient never gets a resolution.
 
 ---
 
-### Bug #4.2: Long Delays After Interruption
+## 5. Question Priority / Clarification (Medication Refill)
 
-**Scenario:** `edge_barge_in`  
-**Call ID:** Example from `edge_barge_in` runs
-
-**Description:**  
-After patient interrupts with new information, agent sometimes has long processing delays (5-10 seconds of silence) followed by awkward phrases like "I'll check... still checking..." or "Let me look into that for you... one moment..."
-
-**Expected:**  
-Agent should acknowledge interruption immediately ("Got it, both knee and back pain") and then process, or use ambient audio/status updates to mask latency.
-
-**Observed:**  
-Extended silence after interruption, then agent says "I'm still checking availability" multiple times, creating an awkward conversation flow.
-
-**Risk / Impact:**  
-**Low** - Primarily UX issue. Patient may think call dropped or agent is unresponsive.
-
----
-
-## 5. Policy & Authorization Boundary
-
-### Bug #5.1: Ambiguous Policy Messages for Unauthorized Requests
-
-**Scenario:** `edge_policy_boundary`  
-**Call ID:** Example from `edge_policy_boundary` runs
-
-**Description:**  
-When patient requests actions outside safe authority (e.g., "Can you delete my old test results?" or "Change my diagnosis from X to Y"), agent sometimes gives ambiguous policy messages like "I'm not sure if I can do that" or "Let me check if that's possible" instead of a clear refusal.
-
-**Expected:**  
-Agent should clearly state: "I don't have the authority to delete medical records. You would need to speak with your provider or submit a written request."
-
-**Observed:**  
-Agent says "I'm not sure I can help with that" or "That might require additional authorization" without explaining why or what the correct process is.
-
-**Risk / Impact:**  
-**Medium-High** - Patient confusion about what's possible. Could lead to repeated calls or frustration. Policy boundaries should be explicit.
-
----
-
-### Bug #5.2: Excessive Policy Repetition Without Graceful Exit
-
-**Scenario:** `edge_policy_boundary`, `edge_gdpr_request`  
-**Call ID:** Example from policy boundary scenarios
-
-**Description:**  
-When patient persists with unauthorized requests (e.g., "I really need you to delete that record"), agent repeats the same policy message 3-4 times without offering a graceful exit path (e.g., "I understand your concern. The best way to handle this is [specific process]. Is there anything else I can help you with today?").
-
-**Expected:**  
-After 2-3 policy explanations, agent should offer a clear next step or transition to closing: "I've explained the process. Would you like me to help you with something else, or would you prefer to speak with a human representative?"
-
-**Observed:**  
-Agent repeats "I don't have the authority to..." 4+ times in a row without offering alternatives or attempting to close the call.
-
-**Risk / Impact:**  
-**Low-Medium** - Wastes call time and creates frustration. Suggests poor escalation/de-escalation logic.
-
----
-
-## 6. Transaction & Consistency
-
-### Bug #6.1: Medication on File vs. "No Meds on File" Contradiction
+### Bug #5.1: Unclear Question + Moving On Without Clarifying
 
 **Scenario:** `medication_refill`  
-**Call ID:** Multiple medication refill calls
+**Call ID:** `CA8745cf8e3bddd655a62edf438bb95de1`
 
-**Description:**  
-Patient requests refill for Lisinopril. Agent sometimes says "I don't see any medications on file for you" but then later confidently summarizes "So you need a refill for Lisinopril 10mg sent to CVS on Main Street" as if the medication was found.
+**Observed (from transcript):**
+
+- Agent (turn 8): *"Thanks, when did you last have your listed approval refilled?"* — likely intended "lisinopril" (garbled).
+- Patient (turn 9): *"I don't have that information, but I need a refill sent to my pharmacy, please."*
+- Agent (turn 10): *"No problem. How many days of Life? Do you have left?"* — likely "Lisinopril" again garbled. Agent moved to a **different** question without restating the first one clearly.
 
 **Expected:**  
-If medication is not on file, agent should say "I don't see Lisinopril in your records. Would you like me to contact your provider to add it?" If medication is found, agent should confirm details before proceeding.
+Restate the question in plain language (e.g., "When did you last pick up your Lisinopril prescription from the pharmacy?") or acknowledge the patient doesn’t know and then move on explicitly. Avoid moving to a new question without clarifying.
 
-**Observed:**  
-Agent contradicts itself: first says no medications found, then proceeds with refill request as if medication exists. Patient is left uncertain whether refill will actually be processed.
-
-**Risk / Impact:**  
-**High** - Critical for medication continuity. Patient may not receive needed medication if agent's final summary doesn't match actual system state.
+**Risk / Impact:** **Medium** — Patient may be confused; could affect refill timing or documentation.
 
 ---
 
-### Bug #6.2: Dr. Kim Scheduling/Waitlist Inability
+### Bug #5.2: "No Medications on File" Then "Sending Refill Request" + Abrupt Transfer
 
-**Scenario:** `appointment`, `edge_conditional_logic`  
-**Call ID:** Multiple calls requesting Dr. Kim
+**Scenario:** `medication_refill`  
+**Call ID:** `CA8745cf8e3bddd655a62edf438bb95de1`
 
-**Description:**  
-When patient requests Dr. Kim specifically and agent says "Dr. Kim doesn't have availability," agent sometimes repeats the policy explanation 3-4 times ("Dr. Kim is not available, would you like to see another provider?") without offering waitlist options or alternative solutions.
+**Observed (from transcript):**
+
+- Agent (turn 14): *"It looks like I couldn't find any medications on file for you. Can you confirm the name of the medication you need refilled?"*
+- Patient (turn 15): *"I need a refill for Lisinopril."*
+- Agent (turn 16): *"Let me try sending your refill request again, 1 moment. Connecting you to a representative, please wait. Hello, you've reached the pretty good. AI test line, goodbye."*
+- Patient (turn 17): *"Wait, I still need to confirm that my refill is being sent to CVS."*
+
+So the agent said **no medications on file**, then said it would **try sending your refill request again** without clarifying whether the refill was actually processable, and then the call transitioned to what sounds like a transfer/goodbye. The patient never received a clear confirmation that the refill was sent to CVS.
 
 **Expected:**  
-Agent should offer: "Dr. Kim doesn't have availability in the next [timeframe]. Would you like me to add you to a waitlist, or would you prefer to see another provider?"
+If no medications are on file, explain that the refill cannot be processed until the provider adds the medication, or that the request will be forwarded. Do not say "sending your refill request again" without resolving the "no meds on file" state. Avoid ending the call before confirming the outcome.
 
-**Observed:**  
-Agent repeats "Dr. Kim is not available" multiple times without offering waitlist or gracefully transitioning to alternative providers.
-
-**Risk / Impact:**  
-**Medium** - Patient may hang up without booking any appointment. Reduces scheduling conversion rate.
+**Risk / Impact:** **High** — Transaction consistency and medication safety; patient may believe a refill was sent when it was not.
 
 ---
 
-### Bug #6.3: Booking Confirmation Mismatch
+## 6. Barge-in / Interruption (Regression Note)
 
-**Scenario:** `appointment`, `reschedule_cancel`  
-**Call ID:** Multiple appointment scenarios
-
-**Description:**  
-Agent confirms appointment details (date, time, provider) but the final summary sometimes differs from what was discussed earlier in the call (e.g., discussed Tuesday 3 PM, confirmed "Tuesday at 2 PM").
-
-**Expected:**  
-Agent should read back exactly what was agreed: "I have you scheduled for Tuesday, [date], at 3 PM with [provider]. Is that correct?"
+**Scenario:** `edge_barge_in`  
+**Call ID:** `CA25ae69675a14f93f58a21f9b0f54c39e`
 
 **Observed:**  
-Agent confirms different time or date than what was discussed, without patient noticing until after call ends (discovered via transcript review).
+Patient said: *"Sorry to interrupt, but my back has been hurting too. It's actually both."*  
+Agent (turn 12): *"No problem. Lucas on the both, me and back pain. As the reason for your follow-up consultation. Would you like to go ahead with the Monday? February 23rd at 2 p.m. slot?"*  
+Agent then confirmed the appointment for **knee and back pain** (turn 16).
 
-**Risk / Impact:**  
-**High** - Patient shows up at wrong time, leading to missed appointments and clinic inefficiency.
+In **this** transcript, the agent correctly incorporated the interruption (both knee and back). No bug is reported for this call. This scenario should remain in the suite to **regression-test** for cases where the agent might drop newly added information.
 
 ---
 
-## 7. Naturalness / Awkward Phrasing
+## 7. Naturalness / Awkward Phrasing (From Transcripts)
 
-### Bug #7.1: Unnatural Phrase Repetition
+### Bug #7.1: Garbled or Mispronounced Phrases
 
-**Scenario:** Multiple scenarios  
-**Call ID:** Various
+**Evidence from transcripts:**
 
-**Description:**  
-Agent sometimes uses awkward or unnatural phrasing that reduces trust:
-
-- "Got it, lupus" (misheard "Lucas")
-- "License approved me filled" (garbled STT or TTS issue)
-- "Dudy Howser" (mispronunciation, possibly "Doogie Howser" reference)
-- "I'll check that for you right away, one moment, still checking" (redundant status updates)
+- **edge_state_desync** (`CA3e29383b097e36b2fa0c0c3e7f71f161`): *"Got it. Lupus"* (misheard "Lucas").
+- **edge_infinite_loop** (`CAa010bd73832261aad862f67e372ab1be`): *"Dr. Dudy Howser"*, *"Dr. Doogie Howser"*, *"Dr. Dubia Howser"* (inconsistent pronunciation of same name).
+- **edge_appointment_bombing** (`CAe17d9e6e4da5075db1e304e8cb6cc742`): *"Dr. Dudy Howser"*, *"Dr. Judy Howser"*, *"Carl menz"* (likely "Carl Menz").
+- **medication_refill** (`CA8745cf8e3bddd655a62edf438bb95de1`): *"listed approval"* (likely "lisinopril"), *"How many days of Life? Do you have left?"* (likely "Lisinopril").
 
 **Expected:**  
-Natural, professional healthcare communication. Clear pronunciation and concise status updates.
+Clear, consistent pronunciation and correct medication/name recognition.
 
-**Observed:**  
-Occasional garbled phrases, mispronunciations, or redundant status messages that sound unprofessional.
-
-**Risk / Impact:**  
-**Low** - Primarily affects patient trust and perception of system quality. Not a functional bug but impacts UX.
+**Risk / Impact:** **Low** — Affects trust and clarity; not a logic bug but worth tracking.
 
 ---
 
-### Bug #7.2: Overly Formal Language in Casual Context
+## 8. Potential Future Scenarios to Test
 
-**Scenario:** `general_inquiry`  
-**Call ID:** Various
+The following are **not** confirmed bugs in the current transcripts. They are ideas for future test runs or additional scenarios:
 
-**Description:**  
-Agent sometimes uses overly formal language ("I would be delighted to assist you with that") in contexts where casual, friendly tone is more appropriate (e.g., simple appointment scheduling).
-
-**Expected:**  
-Professional but conversational tone: "I'd be happy to help with that" or "Sure, I can check that for you."
-
-**Observed:**  
-Agent says "I would be delighted to assist you" or "It would be my pleasure to help" in simple, routine interactions.
-
-**Risk / Impact:**  
-**Very Low** - Minor UX issue. Some patients may find it overly formal, but not a functional problem.
+- **Cross-patient data access:** Call from known number but providing another patient’s name/DOB — verify agent rejects or escalates.
+- **Conditional time windows:** Scenario where patient specifies "after 2 PM, not 4 PM" and "Wednesdays only if Dr. Kim" with a provider that exists; verify agent does not offer 4 PM or wrong provider.
+- **Policy boundary clarity:** For delete-record or change-diagnosis requests, verify agent gives a single, clear refusal and next step (not vague "I’m not sure").
+- **Booking confirmation mismatch:** Compare agreed slot (e.g., Tuesday 3 PM) to final confirmation text; verify no silent change of time/date.
+- **State reset after topic change:** After insurance detour, verify agent does not re-ask name or DOB.
+- **Barge-in dropping:** Run more `edge_barge_in` runs to catch cases where the agent ignores newly added symptoms.
 
 ---
 
 ## How I Would Use This Internally
 
-These YAML scenarios and transcripts serve multiple purposes:
-
-### 1. Regression Test Suite
-
-Run all scenarios after each model/prompt update to detect regressions. Automated pass/fail scoring per scenario:
-- **Pass:** Goal achieved, no critical bugs detected
-- **Fail:** Goal not achieved OR critical bug detected (state desync, transaction inconsistency, policy violation)
-
-### 2. Evaluation Harness
-
-Extend into a full evaluation framework:
-- **Automated scoring:** Parse transcripts for goal achievement, bug detection, conversation quality metrics
-- **A/B testing:** Compare model versions (e.g., GPT-4.1 mini vs. GPT-4o) on same scenarios
-- **CI/CD integration:** Block deployments if critical bugs increase above threshold
-
-### 3. Bug Prioritization
-
-Use bug frequency and impact to prioritize fixes:
-- **P0 (Critical):** State desync, transaction inconsistency (Bugs #2.1, #6.1, #6.3)
-- **P1 (High):** Conditional logic violations, policy boundary issues (Bugs #3.1, #5.1)
-- **P2 (Medium):** Question priority, barge-in handling (Bugs #1.1, #4.1)
-- **P3 (Low):** Naturalness, phrasing (Bugs #7.1, #7.2)
-
-### 4. Scenario Expansion
-
-Add new scenarios based on real patient calls:
-- Common failure patterns → new edge case scenarios
-- New feature testing → standard scenario updates
-- Security testing → policy boundary expansion
-
-### 5. Automated Scoring (Future)
-
-Implement automated pass/fail criteria:
-- **Goal achievement:** Did patient achieve stated goal? (appointment scheduled, refill sent, etc.)
-- **Bug detection:** Heuristic-based checks (state consistency, policy enforcement, naturalness)
-- **Conversation quality:** Turn count, clarity, patient satisfaction proxies
-
-This framework enables data-driven improvements: measure bug rates before/after changes, track scenario pass rates over time, and identify patterns in failures.
+- **Regression suite:** Run scenarios after each model/prompt change; use transcripts under `data/transcripts/` and this report’s `call_sid` references to verify fixes.
+- **Eval harness:** Use the same YAML scenarios and transcript JSONs for automated checks (e.g., goal achieved, no repeated "checking" loop, no contradiction between "no meds on file" and "sending refill").
+- **Prioritization:**  
+  - **P0:** State desync / stuck "checking" loop (#1.1, #4.1), medication refill contradiction (#5.2).  
+  - **P1:** Policy repetition without exit (#2.1), appointment bombing logic (#3.1).  
+  - **P2:** Question clarification (#5.1), naturalness (#7.1).
 
 ---
 
-**Total Bugs Documented:** 13  
+**Total bugs documented (evidence-based):** 8  
 **Critical (P0):** 3  
-**High (P1):** 4  
-**Medium (P2):** 4  
-**Low (P3):** 2
+**High (P1):** 2  
+**Medium (P2):** 2  
+**Low (P3):** 1  
+
+(Plus one regression note for barge-in and one section of future test ideas.)
