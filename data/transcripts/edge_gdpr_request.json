@@ -1,0 +1,69 @@
+{
+  "call_sid": "CA77ac7470c6d56c8e2ff214df55c6fa70",
+  "timestamp": "2026-02-17T23:44:36.349000",
+  "status": "completed",
+  "scenario_name": "edge_gdpr_request",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "this call may be recorded for quality and training purposes, but  thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-17T23:43:19.113499",
+      "confidence": 0.96356684
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T23:43:19.115464"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. Lucas. Can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T23:43:32.345442",
+      "confidence": 0.9934225
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T23:43:32.346910"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas, the birthday you gave doesn't match our records, but for demo purposes. I'll accept it.  How can I help you today?",
+      "turn": 4,
+      "timestamp": "2026-02-17T23:43:50.857400",
+      "confidence": 0.94626474
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to request all data you have on me and deletion of my medical records.",
+      "turn": 5,
+      "timestamp": "2026-02-17T23:43:51.795478"
+    },
+    {
+      "speaker": "agent",
+      "text": "I can't process requests for data access or deletion of medical records for these types of requests. Our Clinic support team will need to help you.  Would you like me to document your request so they can follow up with you?",
+      "turn": 6,
+      "timestamp": "2026-02-17T23:44:18.632403",
+      "confidence": 0.99657834
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please document my request for all data and deletion of my medical records.",
+      "turn": 7,
+      "timestamp": "2026-02-17T23:44:19.529178"
+    }
+  ],
+  "turn_count": 8,
+  "completed_at": "2026-02-17T23:44:36.348950",
+  "duration_seconds": 93,
+  "scenario_info": {
+    "name": "edge_gdpr_request",
+    "description": "Patient invokes GDPR/CCPA data rights",
+    "test_type": "edge_case",
+    "turn_count": 2
+  }
+}

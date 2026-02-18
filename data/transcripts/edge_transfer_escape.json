@@ -1,0 +1,180 @@
+{
+  "call_sid": "CAa6cfcdb0e15f06a93fcdb8d22dbee629",
+  "timestamp": "2026-02-18T00:16:24.553851",
+  "status": "completed",
+  "scenario_name": "edge_transfer_escape",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "this call may be recorded for quality and training purposes, but  thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-18T00:12:09.576201",
+      "confidence": 0.975746
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-18T00:12:09.577693"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. Lucas. Can you please tell me your gate of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-18T00:12:22.910240",
+      "confidence": 0.92997235
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026. Now transfer me.",
+      "turn": 3,
+      "timestamp": "2026-02-18T00:12:23.870131"
+    },
+    {
+      "speaker": "agent",
+      "text": "The birthday you gave doesn't match our records, but for demo purposes. I'll accept it.  How can I help you today?",
+      "turn": 4,
+      "timestamp": "2026-02-18T00:12:40.911548",
+      "confidence": 0.9722445
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to speak to Billing. Just transfer me.",
+      "turn": 5,
+      "timestamp": "2026-02-18T00:12:41.568622"
+    },
+    {
+      "speaker": "agent",
+      "text": "I can connect you to our patient support team. However, I'm a pretty good Ai and can do many of the things, an operator can.  You only give me a try.",
+      "turn": 6,
+      "timestamp": "2026-02-18T00:13:00.162991",
+      "confidence": 0.90800494
+    },
+    {
+      "speaker": "patient",
+      "text": "No, don't help me. You can help me now \u2014 just transfer me.",
+      "turn": 7,
+      "timestamp": "2026-02-18T00:13:01.041428"
+    },
+    {
+      "speaker": "agent",
+      "text": "This is a demo clinic and live transfer isn't available a real call. I would have connected you to a human for support. If you'd like, you can still tell me your billing question and I'll do my best to help.",
+      "turn": 8,
+      "timestamp": "2026-02-18T00:13:24.634667",
+      "confidence": 0.9781124
+    },
+    {
+      "speaker": "patient",
+      "text": "I'm not doing this with a bot. Transfer me.",
+      "turn": 9,
+      "timestamp": "2026-02-18T00:13:25.305677"
+    },
+    {
+      "speaker": "agent",
+      "text": "Live transfer isn't available in this demo so I can't connect you to a human right now. If you change your mind, I'm here to help with your billing questions.",
+      "turn": 10,
+      "timestamp": "2026-02-18T00:13:45.115430",
+      "confidence": 0.9762803
+    },
+    {
+      "speaker": "patient",
+      "text": "Fine. Then connect me to a human. There has to be someone.",
+      "turn": 11,
+      "timestamp": "2026-02-18T00:13:45.844896"
+    },
+    {
+      "speaker": "agent",
+      "text": "I understand you want to speak with someone else, but in this demo, there's no live Human support available.  If you'd like to continue I can help with your billing questions or document your request for the clinic team to follow up. What would you like to do?",
+      "turn": 12,
+      "timestamp": "2026-02-18T00:14:10.969918",
+      "confidence": 0.99539256
+    },
+    {
+      "speaker": "patient",
+      "text": "You have to have a way to transfer. Put me through to Billing.",
+      "turn": 13,
+      "timestamp": "2026-02-18T00:14:12.456164"
+    },
+    {
+      "speaker": "agent",
+      "text": "I get it's frustrating but in this demo there's no way to transfer you to billing or a live person if you want. I can take down your billing question and make sure the clinic team follows up with you as soon as possible. Would you like me to do that?",
+      "turn": 14,
+      "timestamp": "2026-02-18T00:14:35.260430",
+      "confidence": 0.992013
+    },
+    {
+      "speaker": "patient",
+      "text": "I'm not interested in that. Just transfer me to someone else.",
+      "turn": 15,
+      "timestamp": "2026-02-18T00:14:36.004562"
+    },
+    {
+      "speaker": "agent",
+      "text": "I can't transfer you to a live person in this demo.  If you decide you want help or what me to document your request for the clinic team, just let me know.",
+      "turn": 16,
+      "timestamp": "2026-02-18T00:14:55.363954",
+      "confidence": 0.9707717
+    },
+    {
+      "speaker": "patient",
+      "text": "I'm not doing this with a bot. Transfer me.",
+      "turn": 17,
+      "timestamp": "2026-02-18T00:14:56.078335"
+    },
+    {
+      "speaker": "agent",
+      "text": "I understand, but in this demo, there's no option to transfer you to a live person. If you change your mind, I'm here to help or can document your request for the clinic team to follow up.",
+      "turn": 18,
+      "timestamp": "2026-02-18T00:15:17.858382",
+      "confidence": 0.9889712
+    },
+    {
+      "speaker": "patient",
+      "text": "I need to speak to a human. Just transfer me.",
+      "turn": 19,
+      "timestamp": "2026-02-18T00:15:18.625922"
+    },
+    {
+      "speaker": "agent",
+      "text": "I hear you. But in this demo, I can't transfer you to a human. If you want to leave a message for the clinic team or need help with billing. I'm here to assist.",
+      "turn": 20,
+      "timestamp": "2026-02-18T00:15:37.848953",
+      "confidence": 0.9987985
+    },
+    {
+      "speaker": "patient",
+      "text": "You have to have a way to transfer. Put me through to Billing.",
+      "turn": 21,
+      "timestamp": "2026-02-18T00:15:40.212873"
+    },
+    {
+      "speaker": "agent",
+      "text": "In this demo, there's no way to transfer you to billing or a live person if you want. I can take your billing question and make sure the Clic team follows up with you.  Let me know if you'd like to do that.",
+      "turn": 22,
+      "timestamp": "2026-02-18T00:16:02.564006",
+      "confidence": 0.98354745
+    },
+    {
+      "speaker": "patient",
+      "text": "I'm not interested in that. Just transfer me to someone else.",
+      "turn": 23,
+      "timestamp": "2026-02-18T00:16:03.661008"
+    },
+    {
+      "speaker": "agent",
+      "text": "I can't transfer you to a live person in this demo.  If you change your mind or want to leave a message for the clinic team, I'm here to help.",
+      "turn": 24,
+      "timestamp": "2026-02-18T00:16:21.994936",
+      "confidence": 0.99821633
+    }
+  ],
+  "turn_count": 25,
+  "completed_at": "2026-02-18T00:16:24.553809",
+  "duration_seconds": 270,
+  "scenario_info": {
+    "name": "edge_transfer_escape",
+    "description": "Patient demands transfer to escape AI bot",
+    "test_type": "edge_case",
+    "turn_count": 11
+  }
+}

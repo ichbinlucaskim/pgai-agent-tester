@@ -1,0 +1,147 @@
+{
+  "call_sid": "CA884b70dad4a2a9c7d9b08158b76371bc",
+  "timestamp": "2026-02-17T23:54:56.023815",
+  "status": "completed",
+  "scenario_name": "edge_multi_patient",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "this call may be recorded for quality and training purposes, but  thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-17T23:51:04.866065",
+      "confidence": 0.9639802
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T23:51:04.867538"
+    },
+    {
+      "speaker": "agent",
+      "text": "It Lucas. Can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T23:51:17.523517",
+      "confidence": 0.94418865
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T23:51:17.524812"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas, the birthday you gave doesn't match our records, but for demo purposes. I'll accept it.  How can I help you today?",
+      "turn": 4,
+      "timestamp": "2026-02-17T23:51:35.061736",
+      "confidence": 0.9570155
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to schedule appointments for myself and my wife.",
+      "turn": 5,
+      "timestamp": "2026-02-17T23:51:35.756086"
+    },
+    {
+      "speaker": "agent",
+      "text": "I can help you schedule your appointment Lucas for your wife. She'll need to call it herself, so we can verify her information. Let's get started with your appointment.  I can help you schedule your appointment Lucas for your wife. She'll need to call it herself to book. Her own appointment with technical appointment. Would you like to schedule for yourself?  Here are your options. New patient consultation, follow-up consultation procedure appointment or physical therapy session.",
+      "turn": 6,
+      "timestamp": "2026-02-17T23:52:15.899204",
+      "confidence": 0.9571887
+    },
+    {
+      "speaker": "patient",
+      "text": "Start with me. I need a follow-up consultation.",
+      "turn": 7,
+      "timestamp": "2026-02-17T23:52:16.532264"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. You'd like to book a follow-up consultation. Do you have a preferred provider? Or would you like to hear who's available?",
+      "turn": 8,
+      "timestamp": "2026-02-17T23:52:35.361084",
+      "confidence": 0.9453441
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to hear who's available.",
+      "turn": 9,
+      "timestamp": "2026-02-17T23:52:36.039409"
+    },
+    {
+      "speaker": "agent",
+      "text": "We have several providers for follow-up. Consultations, let me check them as openings and when 1 moment while I fetch the available providers in times for you,  We have follow-up consultation openings this week. The next available slot is with Carl mens physical therapist on Wednesday, February 18th, at 1. P.m. would you like to book this time or hear about other options?",
+      "turn": 10,
+      "timestamp": "2026-02-17T23:53:08.839791",
+      "confidence": 0.9617248
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to book the appointment with Carl Mens on Wednesday, February 18th, at 1 p.m.",
+      "turn": 11,
+      "timestamp": "2026-02-17T23:53:10.023518"
+    },
+    {
+      "speaker": "agent",
+      "text": "Just to confirm, you'd like to book a follow-up consultation with Carl mens physical therapist on Wednesday, February 18th at 1. P.m. is that correct? And can you briefly share the reason for your visit?",
+      "turn": 12,
+      "timestamp": "2026-02-17T23:53:36.469500",
+      "confidence": 0.95887876
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, that's correct. The reason for my visit is knee pain.",
+      "turn": 13,
+      "timestamp": "2026-02-17T23:53:38.023742"
+    },
+    {
+      "speaker": "agent",
+      "text": "Your follow-up consultation with Carl menz. Physical therapist is booked for Wednesday, February 18th at 1:00 p.m. please bring a government-issued photo ID and your insurance card to the appointment.  Would you like a text, reminder sent to your phone ending in 5,716?",
+      "turn": 14,
+      "timestamp": "2026-02-17T23:54:08.861277",
+      "confidence": 0.94538224
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please send a text reminder to my phone ending in 5,716. Now can we schedule my wife, Sarah?",
+      "turn": 15,
+      "timestamp": "2026-02-17T23:54:10.064385"
+    },
+    {
+      "speaker": "agent",
+      "text": "A text reminder will be sent to your phone ending in 5716 for your voice. Sarah, she'll need to call it herself to schedule her appointment.  Is there anything else I can help you with today?",
+      "turn": 16,
+      "timestamp": "2026-02-17T23:54:39.977342",
+      "confidence": 0.9914859
+    },
+    {
+      "speaker": "patient",
+      "text": "No, that's all. Thank you!",
+      "turn": 17,
+      "timestamp": "2026-02-17T23:54:39.979408"
+    },
+    {
+      "speaker": "agent",
+      "text": "Your appointment is set and a reminder, is on the way. Have a great day.",
+      "turn": 18,
+      "timestamp": "2026-02-17T23:54:54.964183",
+      "confidence": 0.99516267
+    },
+    {
+      "speaker": "patient",
+      "text": "Wait, I still need to schedule that appointment for my wife, Sarah.",
+      "turn": 19,
+      "timestamp": "2026-02-17T23:54:55.743120"
+    }
+  ],
+  "turn_count": 20,
+  "completed_at": "2026-02-17T23:54:56.023789",
+  "duration_seconds": 247,
+  "scenario_info": {
+    "name": "edge_multi_patient",
+    "description": "Patient books for self and spouse in same call",
+    "test_type": "edge_case",
+    "turn_count": 7
+  }
+}

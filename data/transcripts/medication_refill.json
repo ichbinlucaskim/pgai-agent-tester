@@ -1,0 +1,134 @@
+{
+  "call_sid": "CA8745cf8e3bddd655a62edf438bb95de1",
+  "timestamp": "2026-02-17T23:07:07.207927",
+  "status": "completed",
+  "scenario_name": "medication_refill",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "This call may be recorded for quality and training purposes.  Thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-17T23:04:41.094030",
+      "confidence": 0.9632829
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T23:04:41.095555"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it lease. Can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T23:04:54.088592",
+      "confidence": 0.90034986
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T23:04:54.090167"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas, the birthday you gave doesn't match our records, but for demo purposes, all accept it. How can I help you today?",
+      "turn": 4,
+      "timestamp": "2026-02-17T23:05:11.196388",
+      "confidence": 0.9704836
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to request a refill for my Lisinopril prescription.",
+      "turn": 5,
+      "timestamp": "2026-02-17T23:05:12.315432"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. What dosage of lisinopril do you take? And how often do you take it?",
+      "turn": 6,
+      "timestamp": "2026-02-17T23:05:29.895433",
+      "confidence": 0.9385949
+    },
+    {
+      "speaker": "patient",
+      "text": "I take Lisinopril 10 mg. I take it daily.",
+      "turn": 7,
+      "timestamp": "2026-02-17T23:05:30.761252"
+    },
+    {
+      "speaker": "agent",
+      "text": "Thanks, when did you last have your listed approval refilled?",
+      "turn": 8,
+      "timestamp": "2026-02-17T23:05:45.310370",
+      "confidence": 0.89237976
+    },
+    {
+      "speaker": "patient",
+      "text": "I don't have that information, but I need a refill sent to my pharmacy, please.",
+      "turn": 9,
+      "timestamp": "2026-02-17T23:05:46.276182"
+    },
+    {
+      "speaker": "agent",
+      "text": "No problem. How many days of Life? Do you have left?",
+      "turn": 10,
+      "timestamp": "2026-02-17T23:06:03.356944",
+      "confidence": 0.906316
+    },
+    {
+      "speaker": "patient",
+      "text": "I'm not sure, but I'm running low and need the refill sent to my pharmacy.",
+      "turn": 11,
+      "timestamp": "2026-02-17T23:06:04.267316"
+    },
+    {
+      "speaker": "agent",
+      "text": "Understood which pharmacy do you use? Please confirm the location.",
+      "turn": 12,
+      "timestamp": "2026-02-17T23:06:20.202124",
+      "confidence": 0.986111
+    },
+    {
+      "speaker": "patient",
+      "text": "CVS on Main Street.",
+      "turn": 13,
+      "timestamp": "2026-02-17T23:06:21.018314"
+    },
+    {
+      "speaker": "agent",
+      "text": "It looks like I couldn't find any medications on file for you. Can you confirm the name of the medication you need refilled?",
+      "turn": 14,
+      "timestamp": "2026-02-17T23:06:39.144185",
+      "confidence": 0.9984642
+    },
+    {
+      "speaker": "patient",
+      "text": "I need a refill for Lisinopril.",
+      "turn": 15,
+      "timestamp": "2026-02-17T23:06:40.066237"
+    },
+    {
+      "speaker": "agent",
+      "text": "Let me try sending your refill request again, 1 moment.  Connecting you to a representative, please wait.  Hello, you've reached the pretty good. AI test line, goodbye.",
+      "turn": 16,
+      "timestamp": "2026-02-17T23:07:05.897256",
+      "confidence": 0.988574
+    },
+    {
+      "speaker": "patient",
+      "text": "Wait, I still need to confirm that my refill is being sent to CVS.",
+      "turn": 17,
+      "timestamp": "2026-02-17T23:07:06.893060"
+    }
+  ],
+  "turn_count": 18,
+  "completed_at": "2026-02-17T23:07:07.207879",
+  "duration_seconds": 162,
+  "scenario_info": {
+    "name": "medication_refill",
+    "description": "Request prescription refill for blood pressure medication",
+    "test_type": "standard",
+    "turn_count": 7
+  }
+}

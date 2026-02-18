@@ -1,0 +1,41 @@
+# Environment and secrets
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Data (preserve dir structure with .gitkeep)
+
+!data/transcripts/.gitkeep
+
+!data/recordings/.gitkeep
+
+
+data/errors.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Flask
+instance/
+.webassets-cache
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+.ngrok

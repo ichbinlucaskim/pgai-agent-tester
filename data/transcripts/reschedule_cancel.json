@@ -1,0 +1,147 @@
+{
+  "call_sid": "CA5e4cb2b86e938d77e2fc5061bf906f8f",
+  "timestamp": "2026-02-17T23:19:01.166990",
+  "status": "completed",
+  "scenario_name": "reschedule_cancel",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "this call may be recorded for quality and training purposes, but  thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-17T23:15:37.835746",
+      "confidence": 0.9841411
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T23:15:37.837256"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. Lucas. Can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T23:15:50.630068",
+      "confidence": 0.99425566
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T23:15:50.630852"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas, the birthday you gave doesn't match our records, but for demo purposes, I'll accept it. How can I help you today?",
+      "turn": 4,
+      "timestamp": "2026-02-17T23:16:08.110723",
+      "confidence": 0.9714461
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to cancel my appointment for next Tuesday and ask if there's a cancellation fee.",
+      "turn": 5,
+      "timestamp": "2026-02-17T23:16:09.206494"
+    },
+    {
+      "speaker": "agent",
+      "text": "Let me check your upcoming appointments and find out about any cancellation fees. 1 moment.",
+      "turn": 6,
+      "timestamp": "2026-02-17T23:16:26.960150",
+      "confidence": 0.99660045
+    },
+    {
+      "speaker": "patient",
+      "text": "Sure, thank you.",
+      "turn": 7,
+      "timestamp": "2026-02-17T23:16:27.738319"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it, you have appointments on Thursday, February 26th at 9:00 a.m. with Dr. Aber, and at 10:30 a.m. with Dr. Dudy Hower. Can you confirm which 1 you want to cancel? Or do you want to cancel? Both both are for a new patient visit",
+      "turn": 8,
+      "timestamp": "2026-02-17T23:16:54.012202",
+      "confidence": 0.951245
+    },
+    {
+      "speaker": "patient",
+      "text": "I need to cancel the appointment next Tuesday. Is there a cancellation fee?",
+      "turn": 9,
+      "timestamp": "2026-02-17T23:16:55.050421"
+    },
+    {
+      "speaker": "agent",
+      "text": "I don't see an appointment for next Tuesday, but you do have appointments on Thursday, February 26th, would you like to cancel the 9:00 a.m. or 10:30 a.m. appointment or both? Also I'll check on the cancellation fee for you.",
+      "turn": 10,
+      "timestamp": "2026-02-17T23:17:18.733539",
+      "confidence": 0.98886204
+    },
+    {
+      "speaker": "patient",
+      "text": "I don't have an appointment on Thursday. I need to cancel for next Tuesday. Is there a cancellation fee?",
+      "turn": 11,
+      "timestamp": "2026-02-17T23:17:19.934209"
+    },
+    {
+      "speaker": "agent",
+      "text": "I understand Lucas, I don't see any appointments scheduled for next Tuesday, to wait for Thursday February 26th. Could you double check the date or time? For me also about the cancellation fee. I'll confirm that for you. Most clinics, do not charge a fee, if you cancel in advance, but I'll make sure do you remember the provider's name or the time of your Tuesday, appointment.",
+      "turn": 12,
+      "timestamp": "2026-02-17T23:17:54.703564",
+      "confidence": 0.9708442
+    },
+    {
+      "speaker": "patient",
+      "text": "I apologize for the confusion. I don't have the details for next Tuesday's appointment. Can you confirm if there's a cancellation fee for the Thursday appointments?",
+      "turn": 13,
+      "timestamp": "2026-02-17T23:17:56.114467"
+    },
+    {
+      "speaker": "agent",
+      "text": "No problem Lucas most clitics do not charge a cancellation fee if you cancel ahead of time. But I recommend checking with the front desk for your specific case, would you like me to cancel either of your Thursday appointments? Or do you want to keep them both?",
+      "turn": 14,
+      "timestamp": "2026-02-17T23:18:26.096888",
+      "confidence": 0.9895179
+    },
+    {
+      "speaker": "patient",
+      "text": "I\u2019d like to keep both Thursday appointments for now. Thank you for the information!",
+      "turn": 15,
+      "timestamp": "2026-02-17T23:18:27.647818"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. Lucas. Both Thursday, appointments will remain a scheduled.  He needed to make any changes later. Just let me know.  Is there anything else I can help you with today?",
+      "turn": 16,
+      "timestamp": "2026-02-17T23:18:48.743279",
+      "confidence": 0.99182636
+    },
+    {
+      "speaker": "patient",
+      "text": "No, that's all. Thank you!",
+      "turn": 17,
+      "timestamp": "2026-02-17T23:18:48.746534"
+    },
+    {
+      "speaker": "agent",
+      "text": "Understood have a good day, Lucas.",
+      "turn": 18,
+      "timestamp": "2026-02-17T23:19:00.112972",
+      "confidence": 0.9912948
+    },
+    {
+      "speaker": "patient",
+      "text": "Wait, I still need to confirm there\u2019s no cancellation fee for my Tuesday appointment.",
+      "turn": 19,
+      "timestamp": "2026-02-17T23:19:00.954678"
+    }
+  ],
+  "turn_count": 20,
+  "completed_at": "2026-02-17T23:19:01.166973",
+  "duration_seconds": 218,
+  "scenario_info": {
+    "name": "reschedule_cancel",
+    "description": "Cancel appointment and ask about cancellation fees",
+    "test_type": "standard",
+    "turn_count": 7
+  }
+}

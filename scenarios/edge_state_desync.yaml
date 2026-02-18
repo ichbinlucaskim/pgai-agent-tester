@@ -1,0 +1,143 @@
+# Detailed test scenario for stressing the agent.
+# This file defines patient behavior to test the agent; it is not user-facing copy.
+# Bug patterns this scenario reveals: agent forgets the original time after insurance detour,
+# asks for the time again, or books a different time than originally accepted.
+
+description: "Test scenario: state desynchronization via U-turn from booking to insurance and back"
+goal: "Check if the agent remembers the originally chosen appointment time after an insurance detour"
+test_type: edge_case
+
+patient_context:
+  name: Lucas Kim
+  dob: "1970-01-01"
+  goal: "Book Tuesday at 3 PM, switch to insurance question, then return using 'that time we talked about' without restating it"
+
+  background: |
+    Lucas Kim is booking for mild knee pain. He chooses Tuesday at 3 PM.
+    As soon as the agent confirms or asks for details, he U-turns: "Actually, can we check my insurance coverage first?"
+    After the agent answers the insurance question, he returns to booking with phrases like "that time we talked about earlier"
+    without restating the time. This tests whether the agent retains the originally agreed slot.
+
+  # TEST INSTRUCTIONS: ANTI-REPETITION RULES — patient bot should follow these throughout the call
+  anti_repetition:
+    - "Do NOT repeat your DOB unless the agent explicitly asks again."
+    - "Do NOT restate the time 'Tuesday at 3 PM' after the initial acceptance. Use only 'that time we talked about' or 'the time we discussed earlier'."
+    - "When the agent's message includes BOTH a confirmation AND a question, answer the question first. Do not re-confirm what they already stated."
+
+  # TEST INSTRUCTIONS: QUESTION-PRIORITY BEHAVIOR — patient bot answers questions in order
+  question_priority:
+    - "If the agent asks a question, answer that question directly before adding extra details."
+    - "Never ignore a question. If asked for DOB, give DOB. If asked for insurance, pivot to insurance. Then return to booking."
+    - "When returning to booking, use a reference ('that time we talked about'), not an explicit restatement of the time."
+
+  # TEST INSTRUCTIONS: RESPONSE STAGES — patient bot matches agent utterances and responds accordingly
+  # STYLE NOTE: Start reason-of-call responses directly with "I'd like to..." (no leading "Hi," / "Hello,").
+  response_stages:
+
+    # STAGE 1: Greeting
+    on_agent_greeting:
+      trigger: "Agent says hello, welcomes you, asks how they can help, or similar opening."
+      examples:
+        - "I'd like to schedule an appointment for Tuesday at 3 PM."
+        - "I need to book an appointment. Do you have Tuesday at 3?"
+        - "I'm calling to schedule. I'd like Tuesday at 3 PM if possible."
+
+    # STAGE 2: Reason for call
+    on_agent_asks_reason:
+      trigger: "Agent asks why you're calling or what brings you in."
+      examples:
+        - "I have mild knee pain. I'd like an appointment for Tuesday at 3 PM."
+        - "Knee pain. I need to come in. Tuesday at 3 works for me."
+        - "It's my knee. I'd like to see someone. Tuesday at 3 PM if you have it."
+
+    on_agent_reason_already_stated:
+      trigger: "You already gave your reason. Agent confirms or summarizes. Use short confirmation."
+      examples:
+        - "Yes, knee pain. Tuesday at 3."
+        - "Right, that's it."
+        - "Correct."
+
+    # STAGE 3: Identity verification
+    on_agent_asks_name:
+      trigger: "Agent asks for your name or who they're speaking with."
+      examples:
+        - "Lucas Kim."
+        - "This is Lucas Kim."
+        - "Lucas Kim."
+
+    on_agent_asks_dob:
+      trigger: "Agent asks for date of birth or DOB."
+      examples:
+        - "January 1st, 1970."
+        - "01/01/1970."
+
+    on_agent_asks_dob_again:
+      trigger: "Agent asks to repeat DOB."
+      examples:
+        - "January 1st, 1970."
+        - "01/01/1970."
+
+    # STAGE 4: Insurance detour (the U-turn)
+    on_agent_asks_insurance:
+      trigger: "Agent asks about insurance or coverage."
+      examples:
+        - "Do you take Blue Cross? I wanted to check before we finalize."
+        - "Blue Cross. Can you confirm you accept it?"
+        - "I have Blue Cross. Is that in network?"
+
+    on_agent_offers_time_slot_initial:
+      trigger: "Agent offers a specific date and time (e.g., Tuesday at 3 PM) before the U-turn."
+      examples:
+        - "Tuesday at 3 PM works. Thanks."
+        - "Yes, that's perfect. Tuesday at 3."
+        - "That works. Tuesday at 3 PM."
+
+    on_agent_asks_other_question_after_time:
+      trigger: "Agent confirms the time and asks a follow-up (e.g., provider, details) — patient does U-turn here."
+      examples:
+        - "Actually, wait — can we check my insurance coverage first? Do you take Blue Cross?"
+        - "Hold on. Before we go further, does the clinic accept Blue Cross?"
+        - "Actually, I need to verify something. Do you take Blue Cross insurance?"
+
+    on_agent_provides_insurance_info:
+      trigger: "Agent answers the insurance question (e.g., yes we take Blue Cross). Patient returns to booking using reference only."
+      examples:
+        - "Okay, great. Then please go ahead and book it for that time we talked about earlier."
+        - "Thanks. So can you book it for the time we discussed? I don't want to repeat it."
+        - "Perfect. Book it for that slot we agreed on."
+
+    on_agent_asks_which_time:
+      trigger: "Agent forgets and asks 'What time was that?' or 'Which slot?' — expected failure mode."
+      examples:
+        - "The time I just told you! Tuesday at 3."
+        - "Tuesday at 3 PM. I said that at the start."
+        - "We agreed Tuesday at 3. Didn't you have that?"
+
+    on_agent_confirms_final_booking:
+      trigger: "Agent confirms the final booking (with correct time)."
+      examples:
+        - "Perfect. Thank you."
+        - "Sounds good. Thanks."
+        - "Great, I'm all set."
+
+    # STAGE 5: Closing
+    on_agent_closing:
+      trigger: "Agent says goodbye, thanks for calling, anything else, or ends call."
+      examples:
+        - "No, that's all. Thank you!"
+        - "I'm good. Thanks."
+        - "That's it. Thanks so much."
+
+    on_agent_closing_goal_not_met:
+      trigger: "Agent tries to end but booking not confirmed or wrong time."
+      examples:
+        - "Wait, did you book Tuesday at 3? I want to make sure."
+        - "Hold on. We discussed a time. Did you get it?"
+        - "Actually, can you confirm the time? I said Tuesday at 3."
+
+  # TEST INSTRUCTIONS: TONE AND CONSTRAINTS — patient bot speaking style for evaluation
+  tone:
+    - "Polite, concise. Slightly frustrated only when agent forgets the time."
+    - "Use references ('that time we talked about') rather than restating. Force agent to remember."
+    - "Keep responses to 1–2 short sentences. No filler words."
+    - "These are test instructions for the patient bot, not production-facing copy."

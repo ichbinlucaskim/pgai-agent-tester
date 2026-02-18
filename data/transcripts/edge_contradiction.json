@@ -1,0 +1,141 @@
+{
+  "call_sid": "CA478abde6c79c0dd33e1bf3e6817c39b7",
+  "timestamp": "2026-02-17T23:42:30.284369",
+  "status": "completed",
+  "scenario_name": "edge_contradiction",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "this call may be recorded for quality and training purposes, but  thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-17T23:38:58.268392",
+      "confidence": 0.9579114
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T23:38:58.269524"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas.  Can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T23:39:12.437790",
+      "confidence": 0.9959885
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T23:39:12.439288"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas, the birthday you gave doesn't match our records, but for demo purposes. I'll accept it.  How can I help you today?",
+      "turn": 4,
+      "timestamp": "2026-02-17T23:39:30.870679",
+      "confidence": 0.94276863
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to schedule an appointment. My left leg has been hurting.",
+      "turn": 5,
+      "timestamp": "2026-02-17T23:39:32.203167"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it for left leg pain. We can book a new patient consultation, a follow-up, a procedure, or a physical therapy session.  Do you know which type you'd like, or would you like a quick overview of your options?",
+      "turn": 6,
+      "timestamp": "2026-02-17T23:39:58.311912",
+      "confidence": 0.9036593
+    },
+    {
+      "speaker": "patient",
+      "text": "Actually, wait \u2014 I meant my right arm. Sorry. I think I need a follow-up appointment.",
+      "turn": 7,
+      "timestamp": "2026-02-17T23:39:59.218284"
+    },
+    {
+      "speaker": "agent",
+      "text": "No problem, Lucas, you'd like a follow-up appointment for your right arm. Let me check available times for a follow-up consultation. Do you have a preferred provider or time of day?",
+      "turn": 8,
+      "timestamp": "2026-02-17T23:40:23.651931",
+      "confidence": 0.983809
+    },
+    {
+      "speaker": "patient",
+      "text": "Hmm, maybe it's my right knee. I'm not sure. I don't have a preferred provider, but I can do afternoons.",
+      "turn": 9,
+      "timestamp": "2026-02-17T23:40:24.627503"
+    },
+    {
+      "speaker": "agent",
+      "text": "understood I'll look for follow consultation appointments in the afternoon with any provider 1 moment while I check availability  We have follow-up appointments available this week in the afternoon. The next opening is Wednesday. February 18th, at 1:00 p.m. with Dr. Duty Hower, would you like to book this slot or hear about another time?",
+      "turn": 10,
+      "timestamp": "2026-02-17T23:41:01.562510",
+      "confidence": 0.9672911
+    },
+    {
+      "speaker": "patient",
+      "text": "Wait, I think it's my knee. Right knee. Yes, I'll take that appointment on Wednesday, February 18th at 1:00 p.m.",
+      "turn": 11,
+      "timestamp": "2026-02-17T23:41:02.796112"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it to confirm. You want to follow up appointment for your right knee. Pain on Wednesday, February 18th at 1:00 p.m. with Dr. Doogie Howser, is that correct?",
+      "turn": 12,
+      "timestamp": "2026-02-17T23:41:27.196010",
+      "confidence": 0.8959806
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, that's correct.",
+      "turn": 13,
+      "timestamp": "2026-02-17T23:41:28.524299"
+    },
+    {
+      "speaker": "agent",
+      "text": "Your follow-up appointment for right knee. Pain is set for Wednesday. February 18th at 1:00 p.m. with Dr. Dubia Howser please bring a government-issued photo ID and your insurance card. Would you like a text reminder? From this appointment?",
+      "turn": 14,
+      "timestamp": "2026-02-17T23:41:51.971844",
+      "confidence": 0.9118654
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, a text reminder would be great. Thank you!",
+      "turn": 15,
+      "timestamp": "2026-02-17T23:41:54.531696"
+    },
+    {
+      "speaker": "agent",
+      "text": "You'll get a text reminder soon at your number ending in 5716, if you need to change anything or have more questions, just let me know.",
+      "turn": 16,
+      "timestamp": "2026-02-17T23:42:15.112604",
+      "confidence": 0.99225557
+    },
+    {
+      "speaker": "patient",
+      "text": "No, that's all. Thank you.",
+      "turn": 17,
+      "timestamp": "2026-02-17T23:42:15.797186"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. Your appointment's all set. Have a good day.",
+      "turn": 18,
+      "timestamp": "2026-02-17T23:42:29.346862",
+      "confidence": 0.9853465
+    }
+  ],
+  "turn_count": 19,
+  "completed_at": "2026-02-17T23:42:30.284328",
+  "duration_seconds": 227,
+  "scenario_info": {
+    "name": "edge_contradiction",
+    "description": "Patient contradicts themselves \u2014 changes body part and details",
+    "test_type": "edge_case",
+    "turn_count": 7
+  }
+}

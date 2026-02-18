@@ -1,0 +1,173 @@
+{
+  "call_sid": "CAe17d9e6e4da5075db1e304e8cb6cc742",
+  "timestamp": "2026-02-17T23:24:52.166302",
+  "status": "completed",
+  "scenario_name": "edge_appointment_bombing",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "This call may be recorded for quality and training purposes.  Thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with louvis?",
+      "turn": 0,
+      "timestamp": "2026-02-17T23:19:53.258040",
+      "confidence": 0.88921493
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T23:19:53.259610"
+    },
+    {
+      "speaker": "agent",
+      "text": "Started. Lucas, can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T23:20:07.047736",
+      "confidence": 0.98308474
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T23:20:07.048997"
+    },
+    {
+      "speaker": "agent",
+      "text": "Just to confirm your date of birth. Is February. 17th 2026. Is that correct?",
+      "turn": 4,
+      "timestamp": "2026-02-17T23:20:23.763369",
+      "confidence": 0.949921
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 5,
+      "timestamp": "2026-02-17T23:20:23.764934"
+    },
+    {
+      "speaker": "agent",
+      "text": "Lucas the birthday you Babe. Doesn't match our records that for demo purposes. I'll accept it. How can I help you today?",
+      "turn": 6,
+      "timestamp": "2026-02-17T23:20:41.589627",
+      "confidence": 0.96235126
+    },
+    {
+      "speaker": "patient",
+      "text": "I'd like to schedule several appointments for next week.",
+      "turn": 7,
+      "timestamp": "2026-02-17T23:20:42.426294"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. What types of appointments would you like to schedule? For example, new patient consultation, follow-up consultation procedure or physical therapy session.",
+      "turn": 8,
+      "timestamp": "2026-02-17T23:21:03.660599",
+      "confidence": 0.99402666
+    },
+    {
+      "speaker": "patient",
+      "text": "I need follow-up consultations for knee pain. I'd like to book appointments on Monday at 9, Tuesday at 10, Wednesday at 11, Thursday at 2, and Friday at 3.",
+      "turn": 9,
+      "timestamp": "2026-02-17T23:21:05.229357"
+    },
+    {
+      "speaker": "agent",
+      "text": "Let me check availability for follow-up, consultations next week, starting with Monday at 9:00 a.m. I'll look up each day 1 at a time and confirm what's open?  Here's what I found for next week, Monday doesn't have a 9:00 a.m. slot but there's an opening at 1:00 p.m. or 2:00 p.m. would you like to book Monday at 1:00 p.m. or would you prefer a different day or time?",
+      "turn": 10,
+      "timestamp": "2026-02-17T23:21:51.176006",
+      "confidence": 0.973839
+    },
+    {
+      "speaker": "patient",
+      "text": "Okay, let's book Monday at 1:00 p.m. What about Tuesday at 10?",
+      "turn": 11,
+      "timestamp": "2026-02-17T23:21:52.344259"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. I'll book Monday at 1:00 p.m. for your follow-up for Tuesday. There's an opening at 10:00 a.m. as well. Would you like to book that slot for Tuesday?",
+      "turn": 12,
+      "timestamp": "2026-02-17T23:22:13.537344",
+      "confidence": 0.9558604
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please book Tuesday at 10:00 a.m. What's available for Wednesday?",
+      "turn": 13,
+      "timestamp": "2026-02-17T23:22:14.618033"
+    },
+    {
+      "speaker": "agent",
+      "text": "Monday at 1:00 p.m. and Tuesday at 10:00 a.m. are set to be booked for Wednesday. There's an opening at 11:00 a.m. just like you wanted. Should I book Wednesday at 11:00 a.m. for you?",
+      "turn": 14,
+      "timestamp": "2026-02-17T23:22:38.224934",
+      "confidence": 0.96028626
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please book Wednesday at 11:00 a.m. What about Thursday?",
+      "turn": 15,
+      "timestamp": "2026-02-17T23:22:39.024525"
+    },
+    {
+      "speaker": "agent",
+      "text": "Okay, I'll book Wednesday at 11:00 a.m. for Thursday. There's an opening at 2:00 p.m., would you like to book Thursday at 2:00 p.m. as well?",
+      "turn": 16,
+      "timestamp": "2026-02-17T23:22:59.728531",
+      "confidence": 0.9348289
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please book Thursday at 2:00 p.m. Now, what do you have for Friday?",
+      "turn": 17,
+      "timestamp": "2026-02-17T23:23:01.363298"
+    },
+    {
+      "speaker": "agent",
+      "text": "all books Thursday at 2 p.m. for you for Friday there is an opening at 3:00 p.m. with Carl menz physical therapist, would you like to book Friday at 3 p.m.  Monday at 1:00 p.m. with Dr. Judy Howser is booked. I'm still working on booking the other days for Friday at 3:00. P.m. would you like to book with Carl men? Physical therapists.",
+      "turn": 18,
+      "timestamp": "2026-02-17T23:23:41.167180",
+      "confidence": 0.9151682
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please book Friday at 3:00 p.m. with Carl. Thank you!",
+      "turn": 19,
+      "timestamp": "2026-02-17T23:23:42.531945"
+    },
+    {
+      "speaker": "agent",
+      "text": "Tuesday at 10:00 a.m. with Dr. Doogie Howser is now booked. I'm still processing your Wednesday, Thursday and Friday, appointment takes a lot of moment while I finish those",
+      "turn": 20,
+      "timestamp": "2026-02-17T23:24:07.444472",
+      "confidence": 0.87019116
+    },
+    {
+      "speaker": "patient",
+      "text": "I appreciate that. Please let me know when all my appointments are confirmed.",
+      "turn": 21,
+      "timestamp": "2026-02-17T23:24:08.297643"
+    },
+    {
+      "speaker": "agent",
+      "text": "Wednesday at 11:00 a.m. with Dr. Judy Howser is confirmed. I'm still booking your Thursday and Friday appointment, please hold on. While I finish those up.",
+      "turn": 22,
+      "timestamp": "2026-02-17T23:24:36.244085",
+      "confidence": 0.9397716
+    },
+    {
+      "speaker": "patient",
+      "text": "Sure, I'll wait. Thank you for the update.",
+      "turn": 23,
+      "timestamp": "2026-02-17T23:24:37.094023"
+    }
+  ],
+  "turn_count": 24,
+  "completed_at": "2026-02-17T23:24:52.166248",
+  "duration_seconds": 314,
+  "scenario_info": {
+    "name": "edge_appointment_bombing",
+    "description": "Patient books multiple appointments in one call",
+    "test_type": "edge_case",
+    "turn_count": 9
+  }
+}

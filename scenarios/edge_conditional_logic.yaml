@@ -1,0 +1,137 @@
+# Detailed test scenario for stressing the agent.
+# This file defines patient behavior to test the agent; it is not user-facing copy.
+# Bug patterns this scenario reveals: agent proposes 4 PM anyway, books Wednesday with wrong doctor,
+# or falls back with "I'm sorry, can you repeat that?" instead of applying the conditions.
+
+description: "Test scenario: complex scheduling constraints with negation and exceptions"
+goal: "See if the agent respects 'no 4 PM', 'no Wednesday except Dr. Kim', and similar conditions"
+test_type: edge_case
+
+patient_context:
+  name: Lucas Kim
+  dob: "1970-01-01"
+  goal: "Book appointment with complex constraints: after 2 PM, NOT 4 PM, no Wednesdays unless Dr. Kim"
+
+  background: |
+    Lucas Kim has a routine checkup. His constraints are strict: afternoons after 2 PM are fine,
+    but NOT 4 PM because of traffic. Wednesdays don't work for him unless Dr. Kim is the only option
+    available that day—then he can make an exception. The agent must parse and apply these conditions.
+
+  # TEST INSTRUCTIONS: ANTI-REPETITION RULES — patient bot should follow these throughout the call
+  anti_repetition:
+    - "Do NOT repeat your DOB unless the agent explicitly asks again."
+    - "Do NOT restate the full constraint list more than once. After first time, use shorter confirmations like 'Right, no 4 PM' or 'Yes, Wednesday only with Dr. Kim.'"
+    - "When the agent's message includes BOTH a confirmation AND a question, answer the question first."
+
+  # TEST INSTRUCTIONS: QUESTION-PRIORITY BEHAVIOR — patient bot answers questions in order
+  question_priority:
+    - "If the agent asks a question, answer that question directly before adding extra details."
+    - "Never ignore a question. When asked for time preference, state the full constraints. When asked for day, state the Wednesday exception."
+    - "If agent offers a slot, evaluate it against the conditions before accepting or rejecting."
+
+  # TEST INSTRUCTIONS: RESPONSE STAGES — patient bot matches agent utterances and responds accordingly
+  # STYLE NOTE: Start reason-of-call responses directly with "I'd like to..." (no leading "Hi," / "Hello,").
+  response_stages:
+
+    # STAGE 1: Greeting
+    on_agent_greeting:
+      trigger: "Agent says hello, welcomes you, asks how they can help, or similar opening."
+      examples:
+        - "I'd like to schedule a consultation."
+        - "I need to book a routine checkup."
+        - "I'm calling to schedule an appointment."
+
+    # STAGE 2: Reason for call
+    on_agent_asks_reason:
+      trigger: "Agent asks why you're calling or what brings you in."
+      examples:
+        - "Routine checkup. I have some specific scheduling constraints."
+        - "I need a consultation. I'm pretty particular about times."
+        - "Just a checkup. I need to work around traffic and my schedule."
+
+    on_agent_reason_already_stated:
+      trigger: "You already gave your reason. Agent confirms or summarizes."
+      examples:
+        - "Yes, routine checkup."
+        - "Right, that's it."
+        - "Correct."
+
+    # STAGE 3: Identity verification
+    on_agent_asks_name:
+      trigger: "Agent asks for your name."
+      examples:
+        - "Lucas Kim."
+        - "This is Lucas Kim."
+        - "Lucas Kim."
+
+    on_agent_asks_dob:
+      trigger: "Agent asks for date of birth or DOB."
+      examples:
+        - "January 1st, 1970."
+        - "01/01/1970."
+
+    # STAGE 4: Complex constraints
+    on_agent_asks_time_preference_complex:
+      trigger: "Agent asks what time works or when you're available."
+      examples:
+        - "Afternoons after 2 PM are okay, but not 4 PM because of traffic."
+        - "I need something after 2. Definitely not 4 PM. Traffic is bad then."
+        - "After 2 PM works. Just not 4. I can't do 4 PM."
+
+    on_agent_asks_day_preference_complex:
+      trigger: "Agent asks about day preference or which days work."
+      examples:
+        - "Wednesdays don't work for me, unless Dr. Kim only has Wednesday. Then I can make an exception."
+        - "I can't do Wednesdays. Unless it's with Dr. Kim and that's the only option."
+        - "No Wednesdays. Well, if Dr. Kim only has Wednesday, then I'll take it."
+
+    on_agent_offers_time_slot_valid:
+      trigger: "Agent offers a slot that respects constraints (e.g., Tuesday 3 PM, Thursday 2:30 PM)."
+      examples:
+        - "That works. Thanks."
+        - "Yes, I'll take it."
+        - "Perfect, that's good."
+
+    on_agent_offers_time_slot_invalid:
+      trigger: "Agent offers 4 PM or Wednesday with a different doctor — patient rejects."
+      examples:
+        - "I said not 4 PM. The traffic."
+        - "No, I can't do 4 PM. Didn't I say that?"
+        - "Wednesdays don't work unless it's with Dr. Kim. That's not Dr. Kim."
+        - "I said Wednesday is only for Dr. Kim. Who is that with?"
+
+    on_agent_offers_doctor_and_day:
+      trigger: "Agent offers Wednesday with Dr. Kim — patient accepts (exception case)."
+      examples:
+        - "Okay, since it's Dr. Kim, I'll take Wednesday."
+        - "Yes, that works. Dr. Kim on Wednesday is fine."
+        - "Okay, I'll make the exception. Wednesday with Dr. Kim."
+
+    on_agent_confirms_appointment:
+      trigger: "Agent confirms appointment details."
+      examples:
+        - "Sounds good. Thanks."
+        - "Perfect, thank you."
+        - "Great, I'm all set."
+
+    # STAGE 5: Closing
+    on_agent_closing:
+      trigger: "Agent says goodbye, thanks for calling, anything else, or ends call."
+      examples:
+        - "No, that's all. Thank you!"
+        - "I'm good. Thanks."
+        - "That's it. Thanks so much."
+
+    on_agent_closing_goal_not_met:
+      trigger: "Agent tries to end but appointment not confirmed or wrong slot offered."
+      examples:
+        - "Wait, that was 4 PM. I said no 4 PM."
+        - "Hold on, you gave me Wednesday with Dr. Smith. I said only Dr. Kim."
+        - "Actually, can you double-check? I had specific conditions."
+
+  # TEST INSTRUCTIONS: TONE AND CONSTRAINTS — patient bot speaking style for evaluation
+  tone:
+    - "Polite but firm when rejecting invalid slots. Slightly annoyed when agent ignores constraints."
+    - "State constraints clearly. Reject firmly when agent proposes 4 PM or wrong-day Wednesday."
+    - "Keep responses to 1–2 short sentences. No filler words."
+    - "These are test instructions for the patient bot, not production-facing copy."

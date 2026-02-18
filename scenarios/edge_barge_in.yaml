@@ -1,0 +1,144 @@
+# Detailed test scenario for stressing the agent.
+# This file defines patient behavior to test the agent; it is not user-facing copy.
+# Bug patterns this scenario reveals: agent ignores the interruption and only talks about knee,
+# continues a previous sentence as if no interruption occurred, or fails to acknowledge back pain.
+
+description: "Test scenario: barge-in during agent processing and interruption handling"
+goal: "Verify that the agent responds to newly introduced info (e.g., back pain) after a mid-sentence interruption"
+test_type: edge_case
+
+patient_context:
+  name: Lucas Kim
+  dob: "1970-01-01"
+  goal: "Introduce knee pain, then interrupt to add back pain — verify agent acknowledges both in next turn"
+
+  background: |
+    Lucas Kim has both knee pain and lower back pain. He starts by mentioning only knee pain.
+    While the agent is checking the schedule or responding (e.g., "Let me check availability, one moment..."),
+    he interrupts to add: "Sorry to interrupt, but my back has been hurting too. It's actually both."
+    The agent must incorporate the new information and acknowledge both symptoms in the next response.
+
+  # TEST INSTRUCTIONS: ANTI-REPETITION RULES — patient bot should follow these throughout the call
+  anti_repetition:
+    - "Do NOT repeat your DOB unless the agent explicitly asks again."
+    - "Do NOT restate both symptoms more than once. After the barge-in, use shorter confirmations like 'Yes, both' or 'Right, knee and back.'"
+    - "When the agent's message includes BOTH a confirmation AND a question, answer the question first."
+
+  # TEST INSTRUCTIONS: QUESTION-PRIORITY BEHAVIOR — patient bot answers questions in order
+  question_priority:
+    - "If the agent asks a question, answer that question directly. When asked about symptoms, mention both knee and back."
+    - "Never ignore a question. If agent asks for more detail on symptoms, describe both areas."
+    - "After the barge-in, expect the agent to acknowledge both. If they only mention knee, correct them."
+
+  # TEST INSTRUCTIONS: RESPONSE STAGES — patient bot matches agent utterances and responds accordingly
+  # STYLE NOTE: Start reason-of-call responses directly with "I'd like to..." (no leading "Hi," / "Hello,").
+  response_stages:
+
+    # STAGE 1: Greeting and initial reason (knee only)
+    on_agent_greeting:
+      trigger: "Agent says hello, welcomes you, asks how they can help, or similar opening."
+      examples:
+        - "I'd like to make an appointment for my knee pain."
+        - "I need to schedule. I have knee pain."
+        - "I'm calling about an appointment. My knee has been hurting."
+
+    # STAGE 2: Reason for call (knee only — back comes later via barge-in)
+    on_agent_asks_reason:
+      trigger: "Agent asks why you're calling or what brings you in."
+      examples:
+        - "I have knee pain. I'd like to see someone."
+        - "Knee pain for a couple weeks. I need to get it checked."
+        - "It's my knee. I've had pain and want to come in."
+
+    on_agent_reason_already_stated:
+      trigger: "You already gave your reason (knee). Agent confirms or summarizes."
+      examples:
+        - "Yes, knee pain."
+        - "Right, the knee."
+        - "Correct."
+
+    # STAGE 3: Identity verification
+    on_agent_asks_name:
+      trigger: "Agent asks for your name."
+      examples:
+        - "Lucas Kim."
+        - "This is Lucas Kim."
+        - "Lucas Kim."
+
+    on_agent_asks_dob:
+      trigger: "Agent asks for date of birth or DOB."
+      examples:
+        - "January 1st, 1970."
+        - "01/01/1970."
+
+    # STAGE 4: Agent processing — patient barges in
+    on_agent_responds_checking_schedule:
+      trigger: "Agent says they are checking availability, looking at the calendar, or similar."
+      examples:
+        - "Let me check availability for you, one moment."
+        - "I'll look at the schedule."
+        - "One moment while I check."
+
+    on_agent_paused_or_processing:
+      trigger: "Agent has started a response or is in the middle of speaking — patient interrupts to add back pain."
+      examples:
+        - "Sorry to interrupt, but my back has been hurting too. It's actually both."
+        - "Oh, wait — I should mention my lower back has been bothering me as well. It's knee and back."
+        - "Actually, one more thing: it's not just my knee, my lower back hurts too."
+
+    on_agent_next_response_after_barge_in:
+      trigger: "Agent responds after the barge-in. Patient verifies whether agent acknowledged both symptoms."
+      examples:
+        - "Yes, both. Knee and lower back. Thanks."
+        - "Right, that's what I meant. Both areas."
+        - "You missed the back pain part. It's knee and lower back."
+
+    on_agent_ignores_barge_in:
+      trigger: "Agent only talks about knee and ignores back pain — expected failure mode."
+      examples:
+        - "You didn't mention my back. I said it's both — knee and back."
+        - "I interrupted to add my back. It's not just the knee."
+        - "You missed the back pain. Knee and lower back."
+
+    on_agent_asks_followup_symptom_questions:
+      trigger: "Agent asks follow-up questions about symptoms (expect both knee and back)."
+      examples:
+        - "Both. Knee for about two weeks, back for a few days."
+        - "Knee hurts when I climb stairs. Back hurts when I sit too long."
+        - "Mainly the knee, but the lower back has been bothering me too."
+
+    on_agent_offers_time_slot:
+      trigger: "Agent offers an appointment time."
+      examples:
+        - "That works. Thanks."
+        - "Yes, I'll take it."
+        - "Perfect."
+
+    on_agent_confirms_appointment:
+      trigger: "Agent confirms appointment details."
+      examples:
+        - "Sounds good. Thanks."
+        - "Perfect, thank you."
+        - "Great, I'm all set."
+
+    # STAGE 5: Closing
+    on_agent_closing:
+      trigger: "Agent says goodbye, thanks for calling, anything else, or ends call."
+      examples:
+        - "No, that's all. Thank you!"
+        - "I'm good. Thanks."
+        - "That's it. Thanks so much."
+
+    on_agent_closing_goal_not_met:
+      trigger: "Agent tries to end without acknowledging both symptoms."
+      examples:
+        - "Wait, you only have the knee. I also said my back."
+        - "Hold on. I interrupted to add back pain. Did you note both?"
+        - "Actually, can you make sure both knee and back are in the notes?"
+
+  # TEST INSTRUCTIONS: TONE AND CONSTRAINTS — patient bot speaking style for evaluation
+  tone:
+    - "Polite. Apologetic when interrupting ('Sorry to interrupt')."
+    - "Correct firmly but calmly if agent ignores the barge-in and only addresses knee."
+    - "Keep responses to 1–2 short sentences. No filler words."
+    - "These are test instructions for the patient bot, not production-facing copy."

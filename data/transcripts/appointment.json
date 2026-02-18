@@ -1,0 +1,180 @@
+{
+  "call_sid": "CA277c5e0622edb77551ff698fe9c94126",
+  "timestamp": "2026-02-17T22:39:34.984794",
+  "status": "completed",
+  "scenario_name": "appointment",
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "This call may be recorded for quality and training purposes.  Thanks for calling Pivot Point Orthopedics. Part of pretty good AI. Am I speaking with Lucas",
+      "turn": 0,
+      "timestamp": "2026-02-17T22:36:36.992522",
+      "confidence": 0.96908814
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, this is Lucas.",
+      "turn": 1,
+      "timestamp": "2026-02-17T22:36:36.994123"
+    },
+    {
+      "speaker": "agent",
+      "text": "Doubt it Lucas. Can you please tell me your date of birth to verify your identity?",
+      "turn": 2,
+      "timestamp": "2026-02-17T22:36:46.511432",
+      "confidence": 0.92612624
+    },
+    {
+      "speaker": "patient",
+      "text": "February 17th, 2026.",
+      "turn": 3,
+      "timestamp": "2026-02-17T22:36:46.512907"
+    },
+    {
+      "speaker": "agent",
+      "text": "Looking at the birthday you gave doesn't match our records, but for demo purposes, I'll accept it.",
+      "turn": 4,
+      "timestamp": "2026-02-17T22:36:59.243114",
+      "confidence": 0.90952116
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, that's correct.",
+      "turn": 5,
+      "timestamp": "2026-02-17T22:37:00.657289"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. What can I help you with today?",
+      "turn": 6,
+      "timestamp": "2026-02-17T22:37:10.417028",
+      "confidence": 0.89312637
+    },
+    {
+      "speaker": "patient",
+      "text": "Hi, I'd like to schedule an appointment to see a doctor for knee pain.",
+      "turn": 7,
+      "timestamp": "2026-02-17T22:37:11.493328"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it for knee pain. We can book a new patient consultation or a follow-up consultation. Is this your first visit for this issue? At to the point Orthopedics?",
+      "turn": 8,
+      "timestamp": "2026-02-17T22:37:29.520089",
+      "confidence": 0.9234874
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, it's a new patient visit for my knee.",
+      "turn": 9,
+      "timestamp": "2026-02-17T22:37:30.358796"
+    },
+    {
+      "speaker": "agent",
+      "text": "Understood. We'll schedule a new patient consultation for your knee. Would you like to see a specific doctor? Or are you open to the next available provider, Dr. Due Howser and Dr. Adam Bricker both, see new patients.",
+      "turn": 10,
+      "timestamp": "2026-02-17T22:37:50.820415",
+      "confidence": 0.95085394
+    },
+    {
+      "speaker": "patient",
+      "text": "No preference. I'm fine with whoever is available.",
+      "turn": 11,
+      "timestamp": "2026-02-17T22:37:51.535416"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. Let me check the next available. New patient consultation with any provider for you.",
+      "turn": 12,
+      "timestamp": "2026-02-17T22:38:04.335860",
+      "confidence": 0.984774
+    },
+    {
+      "speaker": "patient",
+      "text": "Thank you.",
+      "turn": 13,
+      "timestamp": "2026-02-17T22:38:05.033410"
+    },
+    {
+      "speaker": "agent",
+      "text": "Got it. There aren't any opening this week. Would you like me to check for available appointments later next week or the different month?",
+      "turn": 14,
+      "timestamp": "2026-02-17T22:38:18.980270",
+      "confidence": 0.9743015
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, please check for available appointments later next week.",
+      "turn": 15,
+      "timestamp": "2026-02-17T22:38:19.780104"
+    },
+    {
+      "speaker": "agent",
+      "text": "Okay, let me check for a new patient consultation openings later next week.",
+      "turn": 16,
+      "timestamp": "2026-02-17T22:38:31.056153",
+      "confidence": 0.9573616
+    },
+    {
+      "speaker": "patient",
+      "text": "Thank you.",
+      "turn": 17,
+      "timestamp": "2026-02-17T22:38:33.007836"
+    },
+    {
+      "speaker": "agent",
+      "text": "No problem.",
+      "turn": 18,
+      "timestamp": "2026-02-17T22:38:38.438863",
+      "confidence": 0.7976225
+    },
+    {
+      "speaker": "patient",
+      "text": "I appreciate it.",
+      "turn": 19,
+      "timestamp": "2026-02-17T22:38:39.054444"
+    },
+    {
+      "speaker": "agent",
+      "text": "You're welcome. Would you like to book the next available appointment on Thursday, February 26th, at 10:30 a.m. with Dr. Duty Howser, or would you prefer a different day or time?",
+      "turn": 20,
+      "timestamp": "2026-02-17T22:38:55.491021",
+      "confidence": 0.9866547
+    },
+    {
+      "speaker": "patient",
+      "text": "That works for me. Let's book that appointment.",
+      "turn": 21,
+      "timestamp": "2026-02-17T22:38:56.556688"
+    },
+    {
+      "speaker": "agent",
+      "text": "Great to confirm, you'd like to book a new patient consultation for knee. Pain on Thursday, February 26th at 10:30 a.m. with Dr. Dudy Howser, is that correct?",
+      "turn": 22,
+      "timestamp": "2026-02-17T22:39:14.186899",
+      "confidence": 0.93144184
+    },
+    {
+      "speaker": "patient",
+      "text": "Yes, that's correct.",
+      "turn": 23,
+      "timestamp": "2026-02-17T22:39:14.875993"
+    },
+    {
+      "speaker": "agent",
+      "text": "Your appointment is set for Thursday. February 26th at 10:30 a.m. with Dr. Dudy Howser, please bring a government-issued photo ID and your insurance card.",
+      "turn": 24,
+      "timestamp": "2026-02-17T22:39:32.493415",
+      "confidence": 0.9212082
+    }
+  ],
+  "turn_count": 25,
+  "completed_at": "2026-02-17T22:39:34.984755",
+  "duration_seconds": 193,
+  "scenario_info": {
+    "name": "appointment",
+    "description": "New patient appointment scheduling for knee pain",
+    "test_type": "standard",
+    "turn_count": 10
+  }
+}
