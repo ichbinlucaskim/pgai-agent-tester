@@ -85,13 +85,20 @@ class CallSession:
         except Exception as e:
             log("ERROR", "Failed to load scenario", str(e))
 
+    # Minimum turns before we allow any "agent is closing" or "natural end" logic.
+    # Prevents greeting phrases like "Thanks for calling" from ending the call on turn 1.
+    MIN_TURNS_BEFORE_CLOSE = 3
+
     def should_end_call(self, agent_text: str) -> bool:
         """
         Check if conversation should end.
         Only end if BOTH conditions met:
-        1. Agent signals end (thank you, goodbye, etc.)
-        2. Goal appears to be achieved OR max turns reached
+        1. At least MIN_TURNS_BEFORE_CLOSE turns (avoid ending on greeting).
+        2. Agent signals end AND (goal achieved OR max turns reached), or safety cap.
         """
+        if self.turn_count < self.MIN_TURNS_BEFORE_CLOSE:
+            return False
+
         agent_lower = agent_text.lower()
 
         # Ending signals from agent
@@ -266,18 +273,17 @@ def handle_agent_response() -> str:
     session.save_transcript()
 
     # Early exit: if agent clearly closed the call, do NOT call the LLM.
-    # This prevents the patient bot from generating a reply after the agent says goodbye,
-    # which would create an awkward back-and-forth. Return empty TwiML so patient stays
-    # silent and call ends naturally when agent hangs up.
-    if is_closing_utterance(agent_speech):
-        log("INFO", "Agent closing detected - patient will not respond")
+    # Only after MIN_TURNS_BEFORE_CLOSE: greeting phrases like "Thanks for calling" often
+    # appear in the first agent utterance and must not be treated as closing.
+    if session.turn_count >= CallSession.MIN_TURNS_BEFORE_CLOSE and is_closing_utterance(agent_speech):
+        log("INFO", "Agent closing detected - patient will not respond", f"closed because: agent_closing_utterance (turn_count={session.turn_count})")
         response = VoiceResponse()
-        # No <Say> -> patient stays silent, call ends naturally when agent hangs up
         return str(response)
 
-    # Check if call should end (legacy logic for turn limits, etc.)
+    # Check if call should end (goal achieved, max turns, etc.). Also gated by min turns.
     if session.should_end_call(agent_speech):
-        log("INFO", "Natural call ending detected")
+        reason = "goal_achieved" if session.goal_achieved else "max_turns_reached"
+        log("INFO", "Natural call ending detected", f"closed because: {reason} (turn_count={session.turn_count})")
         response = VoiceResponse()
         response.pause(length=1)
         response.say("Thank you, goodbye.", voice="Polly.Matthew-Neural")
