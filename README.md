@@ -183,11 +183,10 @@ pgai-agent/
 ├── scenarios/             # YAML test scenario definitions
 ├── data/                  # Outputs (git-ignored)
 │   ├── transcripts/      # JSON transcript files
-│   ├── recordings/       # MP3 call recordings
-│   └── metrics/          # Analysis outputs
+│   └── recordings/       # MP3 call recordings
 ├── docs/                 # Documentation
 │   └── BUG_REPORT.md    # Bug analysis report
-├── archive/              # Old/alternative implementations (not used)
+│
 ├── test_call.py         # CLI entry point
 ├── analyze_transcript.py # Utility to analyze saved transcripts
 ├── requirements.txt     # Python dependencies
