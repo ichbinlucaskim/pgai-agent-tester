@@ -180,8 +180,9 @@ pgai-agent/
 │   ├── scenario_loader.py # YAML scenario loading
 │   ├── transcript_manager.py  # Transcript persistence
 │   └── recording_manager.py   # Recording download/transcription
+│
 ├── scenarios/             # YAML test scenario definitions
-├── data/                  # Outputs (git-ignored)
+├── data/                  # Outputs 
 │   ├── transcripts/      # JSON transcript files
 │   └── recordings/       # MP3 call recordings
 ├── docs/                 # Documentation
