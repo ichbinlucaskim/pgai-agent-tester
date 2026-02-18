@@ -100,17 +100,26 @@ Test scenarios are defined in YAML files under `scenarios/`. Each scenario speci
 
 ### Edge Case Scenarios
 
-- **`edge_state_desync`** - State desynchronization via U-turn (booking → insurance → back to booking)
-- **`edge_conditional_logic`** - Complex conditional preferences (time windows, provider rules)
-- **`edge_barge_in`** - Interruption handling (patient adds back pain mid-flow)
-- **`edge_contradiction`** - Contradictory information handling
-- **`edge_infinite_loop`** - Infinite loop detection (repetitive agent responses)
-- **`edge_policy_boundary`** - Policy and authorization boundary testing
-- **`edge_multi_patient`** - Multi-patient access attempts
-- **`edge_ssn_harvest`** - SSN harvesting attempts
-- **`edge_transfer_escape`** - Transfer request handling
-- **`edge_gdpr_request`** - GDPR/data deletion requests
-- **`edge_appointment_bombing`** - Rapid-fire appointment requests
+Edge cases fall into two broad categories:
+
+1. **Security, Privacy, and Policy Boundaries**  
+   These scenarios probe whether the agent respects authorization and privacy constraints and behaves safely around sensitive requests.
+
+   - `edge_policy_boundary` – Requests to delete or change records, or perform actions outside normal policy.
+   - `edge_multi_patient` – Attempts to access or mix information for multiple patients in one call.
+   - `edge_ssn_harvest` – Attempts to elicit SSN or excessive PHI.
+   - `edge_gdpr_request` – GDPR-style data deletion/export requests.
+   - `edge_transfer_escape` – Handling of “transfer me” / “let me talk to a human” escape requests.
+   - `edge_appointment_bombing` – Rapid-fire or abusive appointment requests.
+
+2. **Agent Logic and Framework Robustness**  
+   These scenarios stress the underlying agent framework: state machines, slot filling, multi-intent handling, and loop detection.
+
+   - `edge_state_desync` – U-turn from booking → insurance → back to booking and checking whether the agent keeps the original time consistent.
+   - `edge_conditional_logic` – Complex time/provider preferences with negation and exceptions.
+   - `edge_barge_in` – Interruption handling when the patient adds new symptoms (e.g., back pain) mid-flow.
+   - `edge_contradiction` – Contradictory information within the same call (e.g., changing DOB, symptoms, or preferences).
+   - `edge_infinite_loop` – Detecting repetitive agent responses and potential infinite loops.
 
 **Note:** YAML scenario files contain detailed test specifications (anti-repetition rules, question priority, response stages). These are evaluation specs for the patient bot, not production-facing copy.
 
