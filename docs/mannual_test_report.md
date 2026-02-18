@@ -1,9 +1,10 @@
+> Note: This manual test report comes from my early exploratory testing *before* I built the automated bot and YAML-based scenarios in this repo.
+
 # Pretty Good AI Voice Agent - Manual Test Report
 
 **Tester:** Lucas Kim  
 **Date:** February 17, 2026  
 **Test Line:** (615) 645-1400  
-**Patient Info:** Lucas Kim, DOB: November 2nd, 1996  
 
 ---
 
@@ -260,4 +261,3 @@ Based on these observations, my automated testing bot should prioritize:
 
 **Test Duration:** ~20 minutes (3 calls, ~5-7 min each)  
 **Overall Impression:** Extremely well-engineered system. Strong foundation in UX design, security awareness, and healthcare workflow understanding. The one critical question remaining is enforcement of phone-number-based identity binding to prevent cross-patient data access.
-```
