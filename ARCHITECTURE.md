@@ -33,12 +33,25 @@ Scenarios in `scenarios/*.yaml` are comprehensive evaluation specifications, not
 - **Tone constraints:** Enforces natural, concise speech (no filler words, 1-2 sentences max)
 
 This design makes edge cases repeatable and testable:
-- **State desynchronization:** `edge_state_desync.yaml` tests whether agent remembers "Tuesday at 3 PM" after an insurance detour
-- **Conditional logic:** `edge_conditional_logic.yaml` verifies agent applies complex rules (e.g., "after 2 PM, not 4 PM; Wednesdays only if Dr. Kim")
-- **Barge-in handling:** `edge_barge_in.yaml` checks if agent acknowledges newly introduced information (back pain) after interruption
-- **Multi-intent:** Tests agent's ability to handle multiple requests in one call
-- **Policy boundaries:** `edge_policy_boundary.yaml` verifies agent refuses unsafe requests (deleting records, changing diagnoses)
-- **Transaction consistency:** Ensures booking changes and cancellations maintain state correctly
+
+**1. Security, Privacy, and Policy Boundaries**
+These scenarios probe whether the agent respects authorization and privacy constraints.
+
+- `edge_policy_boundary` – Verifies agent refuses unsafe requests (deleting records, changing diagnoses).
+- `edge_multi_patient` – Tests cross-patient access attempts and third-party inquiry handling.
+- `edge_ssn_harvest` – Checks agent does not solicit SSN or excessive PHI.
+- `edge_gdpr_request` – Verifies agent handles data deletion/export requests appropriately.
+- `edge_transfer_escape` – Tests transfer and human escalation request handling.
+- `edge_appointment_bombing` – Checks agent enforces limits on rapid-fire appointment requests.
+
+**2. Agent Logic and Framework Robustness**
+These scenarios stress the underlying agent framework: state machines, slot filling, multi-intent handling, and loop detection.
+
+- `edge_state_desync` – Tests whether agent remembers "Tuesday at 3 PM" after an insurance detour (U-turn).
+- `edge_conditional_logic` – Verifies agent applies complex rules (e.g., "after 2 PM, not 4 PM; Wednesdays only if Dr. Kim").
+- `edge_barge_in` – Checks if agent acknowledges newly introduced information (back pain) after interruption.
+- `edge_contradiction` – Tests how agent handles contradictory information within the same call.
+- `edge_infinite_loop` – Detects repetitive agent responses and potential loop conditions.
 
 ### Benefits
 
